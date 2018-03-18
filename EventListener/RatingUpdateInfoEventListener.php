@@ -4,7 +4,11 @@ namespace Discutea\RatingBundle\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Discutea\RatingBundle\RatingEvents;
+<<<<<<< HEAD
+use Discutea\RatingBundle\Event\RatingEvent;
+=======
 use Chasse\RatingBundle\Event\RatingEvent;
+>>>>>>> 33c10b7b2196601f33c6c0e519ca822ea8d32a67
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 

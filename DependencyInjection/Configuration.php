@@ -15,7 +15,11 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
+<<<<<<< HEAD
+        $rootNode = $treeBuilder->root('discutea');
+=======
         $rootNode = $treeBuilder->root('chasse');
+>>>>>>> 33c10b7b2196601f33c6c0e519ca822ea8d32a67
         $rootNode
             ->children()
             ->scalarNode('base_security_role')->defaultValue('IS_AUTHENTICATED_FULLY')->end()

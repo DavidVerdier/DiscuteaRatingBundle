@@ -66,10 +66,17 @@ class RatingController extends Controller
 
         if (true === $jsonld)
         {
+<<<<<<< HEAD
+            return $this->render('@DiscuteaRating/Rating/structured_data.json.twig', $datas);
+        }
+
+        return $this->render('@DiscuteaRating/Rating/'.$viewName.'.html.twig', $datas);
+=======
             return $this->render('RatingBundle::Rating/structured_data.json.twig', $datas);
         }
 
         return $this->render('RatingBundle::Rating/'.$viewName.'.html.twig', $datas);
+>>>>>>> 33c10b7b2196601f33c6c0e519ca822ea8d32a67
     }
 
     /**
