@@ -14,9 +14,9 @@ interface VoteManagerInterface
     /**
      * Finds one vote by Rating and User
      *
-     * @param \Discutea\RatingBundle\Model\RatingInterface $rating
-     * @param \Symfony\Component\Security\Core\User\UserInterface $voter
-     * @return VoteInterface
+     * @param RatingInterface $rating
+     * @param UserInterface $voter
+     * @return mixed
      */
     public function findOneByRatingAndVoter(RatingInterface $rating, UserInterface $voter);
 
@@ -48,8 +48,8 @@ interface VoteManagerInterface
     /**
      * Save or update vote
      *
-     * @param \Discutea\RatingBundle\Model\VoteInterface $vote
-     * @return RatingInterface
+     * @param VoteInterface $vote
+     * @return mixed
      */
     public function saveVote(VoteInterface $vote);
 

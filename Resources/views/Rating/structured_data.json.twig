@@ -1,0 +1,9 @@
+{% if rate > 0 %}
+"aggregateRating":{
+    "@type":"AggregateRating",
+    "ratingValue":"{{ rating.rate }}",
+    "reviewCount":"{{ rating.numVotes }}",
+    "bestRating":{{ maxValue }},
+    "worstRating":1
+},
+{% endif %}

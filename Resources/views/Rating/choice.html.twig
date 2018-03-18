@@ -1,5 +1,5 @@
 {% spaceless %}
-    <div class="discutea-rating-container">
+    <div class="article discutea-rating-container">
         {% for i in maxValue..1 %}
             {% set style = '' %}
             {% if i <= rating.rate %}
@@ -10,5 +10,9 @@
             {% set params = params|merge({'id' : rating.id, 'value' : i}) %}
             <a href="{{ url('discutea_rating_add_vote', params) }}" class="star {{ style }}">☆</a>
         {% endfor %}
+    </div>
+
+    <div class="total_votes">
+        <span>{{ rating.numVotes }}</span> votes ( moyenne: <span>{{ rating.rate }}</span>/5 )
     </div>
 {% endspaceless %}

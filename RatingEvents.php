@@ -7,7 +7,7 @@ namespace Discutea\RatingBundle;
  * @package Discutea\RatingBundle
  * @copyright 2014 damianociarla https://github.com/damianociarla/DCSRatingBundle
  */
-class DiscuteaRatingEvents
+class RatingEvents
 {
     const RATING_CREATE = 'discutea_rating.event.rating.create';
     const RATING_PRE_PERSIST = 'discutea_rating.event.rating.pre_persist';

@@ -1,6 +1,6 @@
 $(function () {
-    $(document).on('click', '.discutea-rating-container a', function (event) {
-        event.preventDefault();
+    $('.discutea-rating-container').on('click', 'a', function (e) {
+        e.preventDefault();
         var link = $(this);
         $.ajax(link.attr('href'))
             .done(function(data) {

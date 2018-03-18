@@ -3,7 +3,7 @@
 namespace Discutea\RatingBundle\Model;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Discutea\RatingBundle\DiscuteaRatingEvents;
+use Discutea\RatingBundle\RatingEvents;
 use Discutea\RatingBundle\Event;
 
 /**
@@ -22,11 +22,12 @@ abstract class RatingManager implements RatingManagerInterface
     {
         $this->dispatcher = $dispatcher;
     }
+
     /**
      * Finds one rating by id
      *
      * @param string $id
-     * @return ThreadInterface
+     * @return array|RatingInterface
      */
     public function findOneById($id)
     {
@@ -36,8 +37,8 @@ abstract class RatingManager implements RatingManagerInterface
     /**
      * Creates an empty rating instance
      *
-     * @param string $id
-     * @return \Discutea\RatingBundle\Model\RatingInterface
+     * @param null $id
+     * @return RatingInterface|mixed
      */
     public function createRating($id = null)
     {
@@ -48,23 +49,22 @@ abstract class RatingManager implements RatingManagerInterface
             $rating->setId($id);
         }
 
-        $this->dispatcher->dispatch(DiscuteaRatingEvents::RATING_CREATE, new Event\RatingEvent($rating));
+        $this->dispatcher->dispatch(RatingEvents::RATING_CREATE, new Event\RatingEvent($rating));
 
         return $rating;
     }
 
     /**
-     *
-     * @param \Discutea\RatingBundle\Model\RatingInterface $rating
-     * @return \Discutea\RatingBundle\Model\RatingInterface
+     * @param RatingInterface $rating
+     * @return RatingInterface|void
      */
     public function saveRating(RatingInterface $rating)
     {
-        $this->dispatcher->dispatch(DiscuteaRatingEvents::RATING_PRE_PERSIST, new Event\RatingEvent($rating));
+        $this->dispatcher->dispatch(RatingEvents::RATING_PRE_PERSIST, new Event\RatingEvent($rating));
 
         $this->doSaveRating($rating);
 
-        $this->dispatcher->dispatch(DiscuteaRatingEvents::RATING_POST_PERSIST, new Event\RatingEvent($rating));
+        $this->dispatcher->dispatch(RatingEvents::RATING_POST_PERSIST, new Event\RatingEvent($rating));
     }
 
     /**

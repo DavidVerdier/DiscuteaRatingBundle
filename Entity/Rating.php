@@ -5,11 +5,20 @@ namespace Discutea\RatingBundle\Entity;
 use Discutea\RatingBundle\Model\Rating as BaseRating;
 
 /**
- * Class Rating
- * @package Discutea\RatingBundle\Entity
- * @copyright 2014 damianociarla https://github.com/damianociarla/DCSRatingBundle
+ * @ORM\Entity()
+ * @ORM\Table(name="rating_rating")
+ * @ORM\ChangeTrackingPolicy("DEFERRED_EXPLICIT")
  */
 class Rating extends BaseRating
 {
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="string")
+     */
+    protected $id;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Vote", mappedBy="rating")
+     */
+    protected $votes;
 }

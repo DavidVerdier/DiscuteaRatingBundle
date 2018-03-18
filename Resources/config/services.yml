@@ -1,0 +1,36 @@
+services:
+    discutea_rating.twig.rating_extension:
+        class: Discutea\RatingBundle\Twig\RatingExtension
+        arguments:
+            - '@service_container'
+        tags:
+            - { name: twig.extension }
+            
+    discutea_rating.manager.rating:
+        class: Discutea\RatingBundle\Entity\RatingManager
+        arguments:
+            - '@event_dispatcher'
+            - '@doctrine.orm.entity_manager'
+
+    discutea_rating.manager.vote:
+        class: Discutea\RatingBundle\Entity\VoteManager
+        arguments:
+            - '@event_dispatcher'
+            - '@doctrine.orm.entity_manager'
+
+    discutea_rating.listener.rating_update_info:
+        class: Discutea\RatingBundle\EventListener\RatingUpdateInfoEventListener
+        tags:
+            - { name: kernel.event_subscriber }
+        calls:
+            - method: setRequest
+              arguments:
+                  - '@request_stack'
+
+    discutea_rating.listener.rating_update_rate:
+        class: Discutea\RatingBundle\EventListener\RatingUpdateRateEventListener
+        arguments:
+            - '@discutea_rating.manager.rating'
+            - '@discutea_rating.manager.vote'
+        tags:
+            - { name: kernel.event_subscriber }

@@ -6,8 +6,6 @@ use Doctrine\ORM\EntityManager;
 use Discutea\RatingBundle\Model\VoteManager as BaseVoteManager;
 use Discutea\RatingBundle\Model\VoteInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Discutea\RatingBundle\Model\RatingInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class VoteManager
@@ -31,14 +29,14 @@ class VoteManager extends BaseVoteManager
      */
     protected $class;
 
-    public function __construct(EventDispatcherInterface $dispatcher, EntityManager $em, $class)
+    public function __construct(EventDispatcherInterface $dispatcher, EntityManager $em)
     {
         parent::__construct($dispatcher);
 
         $this->em = $em;
-        $this->repository = $em->getRepository($class);
+        $this->repository = $em->getRepository(Vote::class);
 
-        $metadata = $em->getClassMetadata($class);
+        $metadata = $em->getClassMetadata(Vote::class);
         $this->class = $metadata->name;
     }
 

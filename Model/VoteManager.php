@@ -3,7 +3,7 @@
 namespace Discutea\RatingBundle\Model;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Discutea\RatingBundle\DiscuteaRatingEvents;
+use Discutea\RatingBundle\RatingEvents;
 use Discutea\RatingBundle\Event;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -29,7 +29,7 @@ abstract class VoteManager implements VoteManagerInterface
      *
      * @param RatingInterface $rating
      * @param UserInterface $voter
-     * @return \Discutea\RatingBundle\Model\VoteInterface
+     * @return VoteInterface|mixed
      */
     public function createVote(RatingInterface $rating, UserInterface $voter)
     {
@@ -38,7 +38,7 @@ abstract class VoteManager implements VoteManagerInterface
         $vote->setRating($rating);
         $vote->setVoter($voter);
 
-        $this->dispatcher->dispatch(DiscuteaRatingEvents::VOTE_CREATE, new Event\VoteEvent($vote));
+        $this->dispatcher->dispatch(RatingEvents::VOTE_CREATE, new Event\VoteEvent($vote));
 
         return $vote;
     }
@@ -46,8 +46,8 @@ abstract class VoteManager implements VoteManagerInterface
     /**
      * Finds one vote by Rating and User
      *
-     * @param \Discutea\RatingBundle\Model\RatingInterface $rating
-     * @param \Symfony\Component\Security\Core\User\UserInterface $voter
+     * @param RatingInterface $rating
+     * @param UserInterface $voter
      * @return VoteInterface
      */
     public function findOneByRatingAndVoter(RatingInterface $rating, UserInterface $voter)
@@ -59,17 +59,16 @@ abstract class VoteManager implements VoteManagerInterface
     }
 
     /**
-     *
-     * @param \Discutea\RatingBundle\Model\VoteInterface $vote
-     * @return \Discutea\RatingBundle\Model\VoteInterface
+     * @param VoteInterface $vote
+     * @return RatingInterface|void
      */
     public function saveVote(VoteInterface $vote)
     {
-        $this->dispatcher->dispatch(DiscuteaRatingEvents::VOTE_PRE_PERSIST, new Event\VoteEvent($vote));
+        $this->dispatcher->dispatch(RatingEvents::VOTE_PRE_PERSIST, new Event\VoteEvent($vote));
 
         $this->doSaveVote($vote);
 
-        $this->dispatcher->dispatch(DiscuteaRatingEvents::VOTE_POST_PERSIST, new Event\VoteEvent($vote));
+        $this->dispatcher->dispatch(RatingEvents::VOTE_POST_PERSIST, new Event\VoteEvent($vote));
     }
 
     /**

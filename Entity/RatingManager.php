@@ -24,14 +24,14 @@ class RatingManager extends BaseRatingManager
      */
     protected $class;
 
-    public function __construct(EventDispatcherInterface $dispatcher, EntityManager $em, $class)
+    public function __construct(EventDispatcherInterface $dispatcher, EntityManager $em)
     {
         parent::__construct($dispatcher);
 
         $this->em = $em;
-        $this->repository = $em->getRepository($class);
+        $this->repository = $em->getRepository(Rating::class);
 
-        $metadata = $em->getClassMetadata($class);
+        $metadata = $em->getClassMetadata(Rating::class);
         $this->class = $metadata->name;
     }
 

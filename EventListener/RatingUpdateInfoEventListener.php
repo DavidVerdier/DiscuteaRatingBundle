@@ -3,10 +3,10 @@
 namespace Discutea\RatingBundle\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Discutea\RatingBundle\DiscuteaRatingEvents;
-use Discutea\RatingBundle\Event\RatingEvent;
-use Symfony\Component\DependencyInjection\Container;
+use Discutea\RatingBundle\RatingEvents;
+use Chasse\RatingBundle\Event\RatingEvent;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Class RatingUpdateInfoEventListener
@@ -25,15 +25,18 @@ class RatingUpdateInfoEventListener implements EventSubscriberInterface
      *
      * @param Request $request
      */
-    public function setRequest(Request $request = null)
+    public function setRequest(RequestStack $request = null)
     {
-        $this->request = $request;
+        if (method_exists($request->getCurrentRequest(), 'getLocale'))
+        {
+            $this->request = $request->getCurrentRequest();
+        }
     }
 
     public static function getSubscribedEvents()
     {
         return array(
-            DiscuteaRatingEvents::RATING_PRE_PERSIST => 'updatePermalink',
+            RatingEvents::RATING_PRE_PERSIST => 'updatePermalink',
         );
     }
 

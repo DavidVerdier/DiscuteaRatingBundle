@@ -2,31 +2,34 @@
 
 namespace Discutea\RatingBundle\Model;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Class Vote
+ *
+ * @ORM\MappedSuperclass
+ *
  * @package Discutea\RatingBundle\Model
  * @copyright 2014 damianociarla https://github.com/damianociarla/DCSRatingBundle
  */
 abstract class Vote implements VoteInterface
 {
     /**
-     * Id
+     * @var int
      *
-     * @var integer
+     * @ORM\Column(type="integer", options={"unsigned"=true})
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
 
     /**
-     * Value of vote
-     *
-     * @var integer
+     * @ORM\Column(name="value", type="integer")
      */
     protected $value;
 
     /**
-     * Data of creation
-     *
-     * @var \DateTime
+     * @ORM\Column(name="createdAt", type="datetime")
      */
     protected $createdAt;
 
@@ -121,7 +124,7 @@ abstract class Vote implements VoteInterface
     /**
      * Get rating
      *
-     * @return \Discutea\RatingBundle\Model\RatingInterface
+     * @return RatingInterface
      */
     public function getRating()
     {

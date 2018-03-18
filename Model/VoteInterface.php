@@ -2,6 +2,8 @@
 
 namespace Discutea\RatingBundle\Model;
 
+use Symfony\Component\Security\Core\User\UserInterface;
+
 /**
  * Interface VoteInterface
  * @package Discutea\RatingBundle\Model
@@ -64,10 +66,10 @@ interface VoteInterface
     /**
      * Sets the owner of the vote
      *
-     * @param UserInterface $user
-     * @return SignedVoteInterface
+     * @param UserInterface $voter
+     * @return mixed
      */
-    public function setVoter(\Symfony\Component\Security\Core\User\UserInterface $voter);
+    public function setVoter(UserInterface $voter);
 
     /**
      * Gets the owner of the vote

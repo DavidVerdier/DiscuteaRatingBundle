@@ -3,7 +3,7 @@
 namespace Discutea\RatingBundle\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Discutea\RatingBundle\DiscuteaRatingEvents;
+use Discutea\RatingBundle\RatingEvents;
 use Discutea\RatingBundle\Event\VoteEvent;
 use Discutea\RatingBundle\Model\RatingManagerInterface;
 use Discutea\RatingBundle\Model\VoteManagerInterface;
@@ -27,7 +27,7 @@ class RatingUpdateRateEventListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            DiscuteaRatingEvents::VOTE_POST_PERSIST => 'onCreateVote'
+            RatingEvents::VOTE_POST_PERSIST => 'onCreateVote'
         );
     }
 

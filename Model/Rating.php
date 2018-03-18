@@ -2,61 +2,53 @@
 
 namespace Discutea\RatingBundle\Model;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Class Rating
+ *
+ * @ORM\MappedSuperclass
+ *
  * @package Discutea\RatingBundle\Model
  * @copyright 2014 damianociarla https://github.com/damianociarla/DCSRatingBundle
  */
 abstract class Rating implements RatingInterface
 {
     /**
-     * Id, a unique string that binds the votes together in a thread.
-     * It can be a url or really anything unique.
+     * @var int
      *
-     * @var string
+     * @ORM\Column(type="integer", options={"unsigned"=true})
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
 
     /**
-     * Total votes in a thread
-     *
-     * @var int
+     * @ORM\Column( name="numVotes", type="integer")
      */
     protected $numVotes;
 
     /**
-     * Rate votes in a thread
-     *
-     * @var int
+     * @ORM\Column(name="rate", type="decimal", precision=4, scale=1)
      */
     protected $rate;
 
     /**
-     * Base security role
-     *
-     * @var string
+     * @ORM\Column(name="securityRole", type="string", nullable=true)
      */
     protected $securityRole;
 
     /**
-     * Url of the page where the thread lives
-     *
-     * @var string
+     * @ORM\Column(name="permalink", type="string", nullable=true)
      */
     protected $permalink;
 
     /**
-     * Date on which the thread was added
-     *
-     * @var \DateTime
+     * @ORM\Column(name="createdAt", type="datetime")
      */
     protected $createdAt;
 
-    /**
-     * Votes
-     *
-     * @var \Doctrine\Common\Collections\ArrayCollection
-     */
+
     protected $votes;
 
     public function __construct()
