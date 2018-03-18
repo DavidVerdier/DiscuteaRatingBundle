@@ -1,14 +1,19 @@
 <?php
 
-namespace DCS\RatingBundle\Entity;
+namespace Discutea\RatingBundle\Entity;
 
 use Doctrine\ORM\EntityManager;
-use DCS\RatingBundle\Model\VoteManager as BaseVoteManager;
-use DCS\RatingBundle\Model\VoteInterface;
+use Discutea\RatingBundle\Model\VoteManager as BaseVoteManager;
+use Discutea\RatingBundle\Model\VoteInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use DCS\RatingBundle\Model\RatingInterface;
+use Discutea\RatingBundle\Model\RatingInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * Class VoteManager
+ * @package Discutea\RatingBundle\Entity
+ * @copyright 2014 damianociarla https://github.com/damianociarla/DCSRatingBundle
+ */
 class VoteManager extends BaseVoteManager
 {
     /**

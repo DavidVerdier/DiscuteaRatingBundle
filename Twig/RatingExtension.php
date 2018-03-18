@@ -1,9 +1,14 @@
 <?php
 
-namespace DCS\RatingBundle\Twig;
+namespace Discutea\RatingBundle\Twig;
 
 use Symfony\Component\DependencyInjection\Container;
 
+/**
+ * Class RatingExtension
+ * @package Discutea\RatingBundle\Twig
+ * @copyright 2014 damianociarla https://github.com/damianociarla/DCSRatingBundle
+ */
 class RatingExtension extends \Twig_Extension
 {
     private $container;
@@ -29,7 +34,7 @@ class RatingExtension extends \Twig_Extension
 
     public function getDefaultSecurityRoleFunction()
     {
-        return $this->container->getParameter('dcs_rating.base_security_role');
+        return $this->container->getParameter('discutea_rating.base_security_role');
     }
 
     public function isHalfStarFilter($value, $compareValue)

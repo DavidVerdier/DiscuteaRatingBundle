@@ -1,7 +1,12 @@
 <?php
 
-namespace DCS\RatingBundle\Model;
+namespace Discutea\RatingBundle\Model;
 
+/**
+ * Interface VoteInterface
+ * @package Discutea\RatingBundle\Model
+ * @copyright 2014 damianociarla https://github.com/damianociarla/DCSRatingBundle
+ */
 interface VoteInterface
 {
     /**
@@ -44,7 +49,7 @@ interface VoteInterface
     /**
      * Set rating
      *
-     * @param \DCS\RatingBundle\Model\RatingInterface $rating
+     * @param \Discutea\RatingBundle\Model\RatingInterface $rating
      * @return VoteInterface
      */
     public function setRating(RatingInterface $rating);
@@ -52,7 +57,7 @@ interface VoteInterface
     /**
      * Get rating
      *
-     * @return \DCS\RatingBundle\Model\RatingInterface
+     * @return \Discutea\RatingBundle\Model\RatingInterface
      */
     public function getRating();
 

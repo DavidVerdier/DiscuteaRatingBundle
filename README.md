@@ -1,7 +1,7 @@
-DCSRatingBundle
+DiscuteaRatingBundle
 ===============
 
-The DCSRatingBundle adds support for a rating system in Symfony2. Features include:
+The DiscuteaRatingBundle adds support for a rating system in Symfony2. Features include:
 
 * You can add your vote to any page with a single line of code.
 * You can integrate it with any user management system (eg FOSUserBundle)
@@ -10,9 +10,9 @@ The DCSRatingBundle adds support for a rating system in Symfony2. Features inclu
 
 ## 1) Installation
 
-### A) Download and install DCSRatingBundle
+### A) Download and install DiscuteaRatingBundle
 
-To install DCSRatingBundle run the following command
+To install DiscuteaRatingBundle run the following command
 
 	bash $ php composer.phar require damianociarla/rating-bundle
 
@@ -27,13 +27,13 @@ Enable the required bundles in the kernel:
 	{
 	    $bundles = array(
         	// ...
-        	new DCS\RatingBundle\DCSRatingBundle(),
+        	new Discutea\RatingBundle\DiscuteaRatingBundle(),
     	);
 	}
 
 ## 2) Create your Vote and Rating classes
 
-In this first release DCSRatingBundle supports only Doctrine ORM. However, you must provide a concrete Vote and Rating class.
+In this first release DiscuteaRatingBundle supports only Doctrine ORM. However, you must provide a concrete Vote and Rating class.
 You must extend the abstract entities provided by the bundle and creating the appropriate mappings.
 
 ### Rating
@@ -43,7 +43,7 @@ You must extend the abstract entities provided by the bundle and creating the ap
 
     namespace MyProject\MyBundle\Entity;
 
-    use DCS\RatingBundle\Entity\Rating as BaseRating;
+    use Discutea\RatingBundle\Entity\Rating as BaseRating;
     use Doctrine\ORM\Mapping as ORM;
 
     /**
@@ -71,7 +71,7 @@ You must extend the abstract entities provided by the bundle and creating the ap
 
     namespace MyProject\MyBundle\Entity;
 
-    use DCS\RatingBundle\Entity\Vote as BaseVote;
+    use Discutea\RatingBundle\Entity\Vote as BaseVote;
     use Doctrine\ORM\Mapping as ORM;
 
     /**
@@ -103,7 +103,7 @@ You must extend the abstract entities provided by the bundle and creating the ap
 
 	# app/config/config.yml
 
-	dcs_rating:
+	discutea_rating:
         db_driver: orm
         base_path_to_redirect: / # when the permalink is not configured
         max_value: 5 # maximum value for the vote (stars displayed)
@@ -111,12 +111,12 @@ You must extend the abstract entities provided by the bundle and creating the ap
             rating: MyProject\MyBundle\Entity\Rating
             vote: MyProject\MyBundle\Entity\Vote
 
-## 4) Import DCSRatingBundle routing
+## 4) Import DiscuteaRatingBundle routing
 
 Import the bundle routing:
 
-	dcs_rating:
-	    resource: "@DCSRatingBundle/Resources/config/routing.xml"
+	discutea_rating:
+	    resource: "@DiscuteaRatingBundle/Resources/config/routing.xml"
     	prefix:   /
 
 ## 5) Import stylesheet in your template
@@ -127,13 +127,13 @@ To import the stylesheet run the following command:
 
 and include the stylesheet in your template:
 
-	<link rel="stylesheet" href="{{ asset('bundles/dcsrating/css/rating.css') }}" />
+	<link rel="stylesheet" href="{{ asset('bundles/discutearating/css/rating.css') }}" />
 	
 ### 5.1) Enable vote via ajax
 
 To vote via ajax you have to include the script below after loading the jQuery library:
 
-    <script src="{{ asset('bundles/dcsrating/js/rating.js') }}"></script>
+    <script src="{{ asset('bundles/discutearating/js/rating.js') }}"></script>
 
 ## 6) Showing rating and enabling vote
 
@@ -143,7 +143,7 @@ To vote via ajax you have to include the script below after loading the jQuery l
 
 You can show rating using stars without enabling voting:
 
-	{% include 'DCSRatingBundle:Rating:rating.html.twig' with {'id' : 'YOUR_UNIQUE_ID'} %}
+	{% include 'DiscuteaRatingBundle:Rating:rating.html.twig' with {'id' : 'YOUR_UNIQUE_ID'} %}
 
 This is useful if you have a list of items and want to show the rating of each item.
 
@@ -151,12 +151,12 @@ This is useful if you have a list of items and want to show the rating of each i
 
 To enable voting on a page use the following twig code:
 
-	{% include 'DCSRatingBundle:Rating:control.html.twig' with {'id' : 'YOUR_UNIQUE_ID'} %}
+	{% include 'DiscuteaRatingBundle:Rating:control.html.twig' with {'id' : 'YOUR_UNIQUE_ID'} %}
 
 If you need to change the default user role for a specific page, add the `role` parameter:
 
-	{% include 'DCSRatingBundle:Rating:control.html.twig' with {'id' : 'YOUR_UNIQUE_ID', 'role' : 'ROLE_USER'} %}
+	{% include 'DiscuteaRatingBundle:Rating:control.html.twig' with {'id' : 'YOUR_UNIQUE_ID', 'role' : 'ROLE_USER'} %}
 
 If you need to change the permalink, add the `permalink` parameter, otherwise it will be stored the current route:
 
-	{% include 'DCSRatingBundle:Rating:control.html.twig' with {'id' : 'YOUR_UNIQUE_ID', 'permalink' : url('YOUR_ROUTE_ID')} %}
+	{% include 'DiscuteaRatingBundle:Rating:control.html.twig' with {'id' : 'YOUR_UNIQUE_ID', 'permalink' : url('YOUR_ROUTE_ID')} %}

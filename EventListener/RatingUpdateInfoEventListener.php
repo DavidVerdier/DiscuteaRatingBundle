@@ -1,13 +1,18 @@
 <?php
 
-namespace DCS\RatingBundle\EventListener;
+namespace Discutea\RatingBundle\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use DCS\RatingBundle\DCSRatingEvents;
-use DCS\RatingBundle\Event\RatingEvent;
+use Discutea\RatingBundle\DiscuteaRatingEvents;
+use Discutea\RatingBundle\Event\RatingEvent;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Class RatingUpdateInfoEventListener
+ * @package Discutea\RatingBundle\EventListener
+ * @copyright 2014 damianociarla https://github.com/damianociarla/DCSRatingBundle
+ */
 class RatingUpdateInfoEventListener implements EventSubscriberInterface
 {
     /**
@@ -28,7 +33,7 @@ class RatingUpdateInfoEventListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            DCSRatingEvents::RATING_PRE_PERSIST => 'updatePermalink',
+            DiscuteaRatingEvents::RATING_PRE_PERSIST => 'updatePermalink',
         );
     }
 

@@ -1,7 +1,12 @@
 <?php
 
-namespace DCS\RatingBundle\Model;
+namespace Discutea\RatingBundle\Model;
 
+/**
+ * Interface RatingManagerInterface
+ * @package Discutea\RatingBundle\Model
+ * @copyright 2014 damianociarla https://github.com/damianociarla/DCSRatingBundle
+ */
 interface RatingManagerInterface
 {
     /**
@@ -39,7 +44,7 @@ interface RatingManagerInterface
     /**
      * Save or update rating
      *
-     * @param \DCS\RatingBundle\Model\RatingInterface $rating
+     * @param \Discutea\RatingBundle\Model\RatingInterface $rating
      * @return RatingInterface
      */
     public function saveRating(RatingInterface $rating);

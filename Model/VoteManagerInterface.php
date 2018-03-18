@@ -1,15 +1,20 @@
 <?php
 
-namespace DCS\RatingBundle\Model;
+namespace Discutea\RatingBundle\Model;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * Interface VoteManagerInterface
+ * @package Discutea\RatingBundle\Model
+ * @copyright 2014 damianociarla https://github.com/damianociarla/DCSRatingBundle
+ */
 interface VoteManagerInterface
 {
     /**
      * Finds one vote by Rating and User
      *
-     * @param \DCS\RatingBundle\Model\RatingInterface $rating
+     * @param \Discutea\RatingBundle\Model\RatingInterface $rating
      * @param \Symfony\Component\Security\Core\User\UserInterface $voter
      * @return VoteInterface
      */
@@ -43,7 +48,7 @@ interface VoteManagerInterface
     /**
      * Save or update vote
      *
-     * @param \DCS\RatingBundle\Model\VoteInterface $vote
+     * @param \Discutea\RatingBundle\Model\VoteInterface $vote
      * @return RatingInterface
      */
     public function saveVote(VoteInterface $vote);

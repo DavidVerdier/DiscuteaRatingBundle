@@ -1,14 +1,19 @@
 <?php
 
-namespace DCS\RatingBundle\Event;
+namespace Discutea\RatingBundle\Event;
 
 use Symfony\Component\EventDispatcher\Event;
-use DCS\RatingBundle\Model\RatingInterface;
+use Discutea\RatingBundle\Model\RatingInterface;
 
+/**
+ * Class RatingEvent
+ * @package Discutea\RatingBundle\Event
+ * @copyright 2014 damianociarla https://github.com/damianociarla/DCSRatingBundle
+ */
 class RatingEvent extends Event
 {
     /**
-     * @var \DCS\RatingBundle\Model\RatingInterface
+     * @var \Discutea\RatingBundle\Model\RatingInterface
      */
     private $rating;
 
@@ -20,7 +25,7 @@ class RatingEvent extends Event
     /**
      * Get rating
      * 
-     * @return \DCS\RatingBundle\Model\RatingInterface
+     * @return \Discutea\RatingBundle\Model\RatingInterface
      */
     public function getRating()
     {

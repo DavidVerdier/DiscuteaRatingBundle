@@ -1,10 +1,10 @@
 <?php
 
-namespace DCS\RatingBundle\Entity;
+namespace Discutea\RatingBundle\Entity;
 
 use Doctrine\ORM\EntityManager;
-use DCS\RatingBundle\Model\RatingManager as BaseRatingManager;
-use DCS\RatingBundle\Model\RatingInterface;
+use Discutea\RatingBundle\Model\RatingManager as BaseRatingManager;
+use Discutea\RatingBundle\Model\RatingInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class RatingManager extends BaseRatingManager

@@ -5,11 +5,11 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="dcs_rating.twig.rating_extension.class">DCS\RatingBundle\Twig\RatingExtension</parameter>
+        <parameter key="discutea_rating.twig.rating_extension.class">Discutea\RatingBundle\Twig\RatingExtension</parameter>
     </parameters>
 
     <services>
-        <service id="dcs_rating.twig.rating_extension" class="%dcs_rating.twig.rating_extension.class%">
+        <service id="discutea_rating.twig.rating_extension" class="%discutea_rating.twig.rating_extension.class%">
             <argument type="service" id="service_container" />
             <tag name="twig.extension" />
         </service>

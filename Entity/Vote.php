@@ -1,9 +1,14 @@
 <?php
 
-namespace DCS\RatingBundle\Entity;
+namespace Discutea\RatingBundle\Entity;
 
-use DCS\RatingBundle\Model\Vote as BaseVote;
+use Discutea\RatingBundle\Model\Vote as BaseVote;
 
+/**
+ * Class Vote
+ * @package Discutea\RatingBundle\Entity
+ * @copyright 2014 damianociarla https://github.com/damianociarla/DCSRatingBundle
+ */
 class Vote extends BaseVote
 {
 

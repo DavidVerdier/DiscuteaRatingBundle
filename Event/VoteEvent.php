@@ -1,14 +1,19 @@
 <?php
 
-namespace DCS\RatingBundle\Event;
+namespace Discutea\RatingBundle\Event;
 
 use Symfony\Component\EventDispatcher\Event;
-use DCS\RatingBundle\Model\VoteInterface;
+use Discutea\RatingBundle\Model\VoteInterface;
 
+/**
+ * Class VoteEvent
+ * @package Discutea\RatingBundle\Event
+ * @copyright 2014 damianociarla https://github.com/damianociarla/DCSRatingBundle
+ */
 class VoteEvent extends Event
 {
     /**
-     * @var \DCS\RatingBundle\Model\VoteInterface
+     * @var \Discutea\RatingBundle\Model\VoteInterface
      */
     private $vote;
 
@@ -20,7 +25,7 @@ class VoteEvent extends Event
     /**
      * Get vote
      *
-     * @return \DCS\RatingBundle\Model\VoteInterface
+     * @return \Discutea\RatingBundle\Model\VoteInterface
      */
     public function getVote()
     {

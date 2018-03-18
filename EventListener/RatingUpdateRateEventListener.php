@@ -1,13 +1,18 @@
 <?php
 
-namespace DCS\RatingBundle\EventListener;
+namespace Discutea\RatingBundle\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use DCS\RatingBundle\DCSRatingEvents;
-use DCS\RatingBundle\Event\VoteEvent;
-use DCS\RatingBundle\Model\RatingManagerInterface;
-use DCS\RatingBundle\Model\VoteManagerInterface;
+use Discutea\RatingBundle\DiscuteaRatingEvents;
+use Discutea\RatingBundle\Event\VoteEvent;
+use Discutea\RatingBundle\Model\RatingManagerInterface;
+use Discutea\RatingBundle\Model\VoteManagerInterface;
 
+/**
+ * Class RatingUpdateRateEventListener
+ * @package Discutea\RatingBundle\EventListener
+ * @copyright 2014 damianociarla https://github.com/damianociarla/DCSRatingBundle
+ */
 class RatingUpdateRateEventListener implements EventSubscriberInterface
 {
     private $ratingManager;
@@ -22,7 +27,7 @@ class RatingUpdateRateEventListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            DCSRatingEvents::VOTE_POST_PERSIST => 'onCreateVote'
+            DiscuteaRatingEvents::VOTE_POST_PERSIST => 'onCreateVote'
         );
     }
 

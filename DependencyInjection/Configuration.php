@@ -1,10 +1,15 @@
 <?php
 
-namespace DCS\RatingBundle\DependencyInjection;
+namespace Discutea\RatingBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
+/**
+ * Class Configuration
+ * @package Discutea\RatingBundle\DependencyInjection
+ * @copyright 2014 damianociarla https://github.com/damianociarla/DCSRatingBundle
+ */
 class Configuration implements ConfigurationInterface
 {
     /**
@@ -13,7 +18,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('dcs_rating');
+        $rootNode = $treeBuilder->root('discutea_rating');
 
         $rootNode
             ->children()
@@ -62,8 +67,8 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->arrayNode('manager')->addDefaultsIfNotSet()
                     ->children()
-                        ->scalarNode('rating')->cannotBeEmpty()->defaultValue('dcs_rating.manager.rating.default')->end()
-                        ->scalarNode('vote')->cannotBeEmpty()->defaultValue('dcs_rating.manager.vote.default')->end()
+                        ->scalarNode('rating')->cannotBeEmpty()->defaultValue('discutea_rating.manager.rating.default')->end()
+                        ->scalarNode('vote')->cannotBeEmpty()->defaultValue('discutea_rating.manager.vote.default')->end()
                     ->end()
                 ->end()
             ->end()

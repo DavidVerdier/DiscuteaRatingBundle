@@ -1,6 +1,6 @@
 <?php
 
-namespace DCS\RatingBundle\Controller;
+namespace Discutea\RatingBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -8,27 +8,32 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
+/**
+ * Class RatingController
+ * @package Discutea\RatingBundle\Controller
+ * @copyright 2014 damianociarla https://github.com/damianociarla/DCSRatingBundle
+ */
 class RatingController extends Controller
 {
     public function showRateAction($id, Request $request)
     {
-        $ratingManager = $this->container->get('dcs_rating.manager.rating');
+        $ratingManager = $this->container->get('discutea_rating.manager.rating');
 
         if (null === $rating = $ratingManager->findOneById($id)) {
             $rating = $ratingManager->createRating($id);
             $ratingManager->saveRating($rating);
         }
 
-        return $this->render('DCSRatingBundle:Rating:star.html.twig', array(
+        return $this->render('DiscuteaRatingBundle:Rating:star.html.twig', array(
             'rating' => $rating,
             'rate'   => $rating->getRate(),
-            'maxValue' => $this->container->getParameter('dcs_rating.max_value'),
+            'maxValue' => $this->container->getParameter('discutea_rating.max_value'),
         ));
     }
 
     public function controlAction($id, Request $request)
     {
-        $ratingManager = $this->container->get('dcs_rating.manager.rating');
+        $ratingManager = $this->container->get('discutea_rating.manager.rating');
 
         if (null === $rating = $ratingManager->findOneById($id)) {
             $rating = $ratingManager->createRating($id);
@@ -41,27 +46,27 @@ class RatingController extends Controller
         } else {
             // check if the voting system allows multiple votes. Otherwise
             // check if the user has already expressed a preference
-            if (!$this->container->getParameter('dcs_rating.unique_vote')) {
+            if (!$this->container->getParameter('discutea_rating.unique_vote')) {
                 $viewName = 'choice';
             } else {
-                $vote = $this->container->get('dcs_rating.manager.vote')
+                $vote = $this->container->get('discutea_rating.manager.vote')
                     ->findOneByRatingAndVoter($rating, $this->getUser());
 
                 $viewName = null === $vote ? 'choice' : 'star';
             }
         }
 
-        return $this->render('DCSRatingBundle:Rating:'.$viewName.'.html.twig', array(
+        return $this->render('DiscuteaRatingBundle:Rating:'.$viewName.'.html.twig', array(
             'rating' => $rating,
             'rate'   => $rating->getRate(),
             'params' => $request->get('params', array()),
-            'maxValue' => $this->container->getParameter('dcs_rating.max_value'),
+            'maxValue' => $this->container->getParameter('discutea_rating.max_value'),
         ));
     }
 
     public function addVoteAction($id, $value, Request $request)
     {
-        if (null === $rating = $this->container->get('dcs_rating.manager.rating')->findOneById($id)) {
+        if (null === $rating = $this->container->get('discutea_rating.manager.rating')->findOneById($id)) {
             throw new NotFoundHttpException('Rating not found');
         }
 
@@ -69,16 +74,16 @@ class RatingController extends Controller
             throw new AccessDeniedHttpException('You can not perform the evaluation');
         }
 
-        $maxValue = $this->container->getParameter('dcs_rating.max_value');
+        $maxValue = $this->container->getParameter('discutea_rating.max_value');
 
         if (!is_numeric($value) || $value < 0 || $value > $maxValue) {
             throw new BadRequestHttpException(sprintf('You must specify a value between 0 and %d', $maxValue));
         }
 
         $user = $this->getUser();
-        $voteManager = $this->container->get('dcs_rating.manager.vote');
+        $voteManager = $this->container->get('discutea_rating.manager.vote');
 
-        if ($this->container->getParameter('dcs_rating.unique_vote') &&
+        if ($this->container->getParameter('discutea_rating.unique_vote') &&
             null !== $voteManager->findOneByRatingAndVoter($rating, $user)
         ) {
             throw new AccessDeniedHttpException('You have already rated');
@@ -90,13 +95,13 @@ class RatingController extends Controller
         $voteManager->saveVote($vote);
 
         if ($request->isXmlHttpRequest()) {
-            return $this->forward('DCSRatingBundle:Rating:showRate', array(
+            return $this->forward('DiscuteaRatingBundle:Rating:showRate', array(
                 'id' => $rating->getId()
             ));
         }
 
         if (null === $redirectUri = $request->headers->get('referer', $rating->getPermalink())) {
-            $pathToRedirect = $this->container->getParameter('dcs_rating.base_path_to_redirect');
+            $pathToRedirect = $this->container->getParameter('discutea_rating.base_path_to_redirect');
             if ($this->container->get('router')->getRouteCollection()->get($pathToRedirect)) {
                 $redirectUri = $this->generateUrl($pathToRedirect);
             } else {

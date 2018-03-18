@@ -1,24 +1,34 @@
 {
-    "name": "damianociarla/rating-bundle",
-    "description": "This Bundle provides functionality for a rating system for Symfony2 applications",
+    "name": "discutea/rating-bundle",
+    "description": "Forked from damianociarla/rating-bundle ! This Bundle provides functionality for a rating system for Symfony4 applications",
     "type": "library",
     "keywords": [
         "symfony2","rating","star","twig","fos","fosuserbundle"
     ],
     "license": "MIT",
-    "homepage": "https://github.com/damianociarla/DCSRatingBundle",
+    "homepage": "https://github.com/Discutea/DiscuteaRatingBundle.git",
     "authors": [
         {
             "name": "Damiano Ciarla",
             "email": "damiano.ciarla@gmail.com",
             "homepage": "http://www.damianociarla.it/"
+        },
+        {
+            "name": "David Verdier",
+            "email": "contact@discutea.com",
+            "homepage": "https://greatchat.net/"
         }
     ],
     "require": {
-        "php": ">=5.3.2",
-        "symfony/symfony": "~2.3"
+        "php": "^7.2.0",
+        "symfony/framework-bundle": "^2.8 || ^3.0 || ^4.0",
+        "symfony/security-bundle": "^2.8 || ^3.0 || ^4.0",
+        "symfony/twig-bundle": "^2.8 || ^3.0 || ^4.0",
+        "twig/twig": "^1.28 || ^2.0",
+        "symfony/templating": "^2.8 || ^3.0 || ^4.0",
+        "doctrine/doctrine-bundle": "^1.3"
     },
     "autoload": {
-        "psr-4": { "DCS\\RatingBundle\\": "" }
+        "psr-4": { "Discutea\\RatingBundle\\": "" }
     }
 }
