@@ -30,8 +30,4 @@ class RatingExtension extends Extension
     {
         return 'discutea_rating';
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 33c10b7b2196601f33c6c0e519ca822ea8d32a67

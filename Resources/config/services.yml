@@ -8,20 +8,14 @@ services:
             
     discutea_rating.manager.rating:
         class: Discutea\RatingBundle\Entity\RatingManager
-<<<<<<< HEAD
         public: true
-=======
->>>>>>> 33c10b7b2196601f33c6c0e519ca822ea8d32a67
         arguments:
             - '@event_dispatcher'
             - '@doctrine.orm.entity_manager'
 
     discutea_rating.manager.vote:
         class: Discutea\RatingBundle\Entity\VoteManager
-<<<<<<< HEAD
         public: true
-=======
->>>>>>> 33c10b7b2196601f33c6c0e519ca822ea8d32a67
         arguments:
             - '@event_dispatcher'
             - '@doctrine.orm.entity_manager'
