@@ -14,13 +14,13 @@ class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('discutea');
-        $rootNode
+        $treeBuilder = new TreeBuilder('discutea_rating');
+
+        $treeBuilder->getRootNode()
             ->children()
-            ->scalarNode('base_security_role')->defaultValue('IS_AUTHENTICATED_FULLY')->end()
-            ->booleanNode('unique_vote')->defaultTrue()->end()
-            ->integerNode('max_value')->defaultValue(5)->end()
+                ->scalarNode('base_security_role')->defaultValue('IS_AUTHENTICATED_FULLY')->end()
+                ->booleanNode('unique_vote')->defaultTrue()->end()
+                ->integerNode('max_value')->defaultValue(5)->end()
             ->end()
         ;
 

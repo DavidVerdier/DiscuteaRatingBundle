@@ -1,16 +1,14 @@
-{% spaceless %}
-    <div class="discutea-rating-container">
-        {% for i in maxValue..1 %}
-            {% set style = '' %}
-            {% if i <= rate %}
-                {% set style = 'full' %}
-            {% else %}
-                {% set style = rate|isHalfStar(i) ? 'half' %}
-            {% endif %}
-            <span class="star {{ style }}">☆</span>
-        {% endfor %}
-    </div>
-    <div class="total_votes">
-        <span>{{ rating.numVotes }}</span> votes ( moyenne: <span>{{ rate }}</span>/{{ maxValue }} )
-    </div>
-{% endspaceless %}
+<div class="discutea-rating-container">
+    {% for i in maxValue..1 %}
+        {% set style = '' %}
+        {% if i <= rate %}
+            {% set style = 'full' %}
+        {% else %}
+            {% set style = rate|isHalfStar(i) ? 'half' %}
+        {% endif %}
+        <span class="star {{ style }}">☆</span>
+    {% endfor %}
+</div>
+<div class="total_votes">
+    <span>{{ rating.numVotes }}</span> votes ( moyenne: <span>{{ rate }}</span>/{{ maxValue }} )
+</div>

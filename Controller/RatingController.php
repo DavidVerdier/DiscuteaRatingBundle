@@ -2,19 +2,19 @@
 
 namespace Discutea\RatingBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class RatingController
  * @package Discutea\RatingBundle\Controller
  * @copyright 2014 damianociarla https://github.com/damianociarla/DCSRatingBundle
  */
-class RatingController extends Controller
+class RatingController extends AbstractController
 {
     public function showRateAction($id, Request $request)
     {
