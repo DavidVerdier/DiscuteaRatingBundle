@@ -52,11 +52,4 @@ interface VoteManagerInterface
      * @return mixed
      */
     public function saveVote(VoteInterface $vote);
-
-    /**
-     * Returns the vote fully qualified class name
-     *
-     * @return string
-     */
-    public function getClass();
 }

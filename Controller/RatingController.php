@@ -2,15 +2,15 @@
 
 namespace Discutea\RatingBundle\Controller;
 
+use Discutea\RatingBundle\Entity\Rating;
+use Discutea\RatingBundle\Model\RatingManagerInterface;
+use Discutea\RatingBundle\Model\VoteManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
-use Discutea\RatingBundle\Entity\RatingManager;
-use Discutea\RatingBundle\Entity\VoteManager;
 use Symfony\Component\Routing\RouterInterface;
 
 /**
@@ -21,12 +21,7 @@ use Symfony\Component\Routing\RouterInterface;
 class RatingController extends AbstractController
 {
     /**
-     * @var RatingManager
-     */
-    private $ratingManager;
-
-    /**
-     * @var VoteManager
+     * @var VoteManagerInterface
      */
     private $voteManager;
 
@@ -37,26 +32,25 @@ class RatingController extends AbstractController
 
     /**
      * RatingController constructor.
-     * @param RatingManager $ratingManager
-     * @param VoteManager $voteManager
+     * @param VoteManagerInterface $voteManager
      * @param array $discuteaRatingConfig
      */
-    public function __construct(RatingManager $ratingManager, VoteManager $voteManager, array $discuteaRatingConfig)
+    public function __construct(VoteManagerInterface $voteManager, array $discuteaRatingConfig)
     {
-        $this->ratingManager = $ratingManager;
         $this->voteManager = $voteManager;
         $this->discuteaRatingConfig = $discuteaRatingConfig;
     }
 
     /**
      * @param $id
+     * @param RatingManagerInterface $ratingManager
      * @return Response
      */
-    public function showRate($id): Response
+    public function showRate($id, RatingManagerInterface $ratingManager): Response
     {
-        if (null === $rating = $this->ratingManager->findOneById($id)) {
-            $rating = $this->ratingManager->createRating($id);
-            $this->ratingManager->saveRating($rating);
+        if (null === $rating = $ratingManager->findOneBy(['id' => $id])) {
+            $rating = $ratingManager->createRating($id);
+            $ratingManager->saveRating($rating);
         }
 
         return $this->render('@DiscuteaRatingBundle/Rating/star.html.twig', array(
@@ -72,11 +66,11 @@ class RatingController extends AbstractController
      * @param bool $jsonld
      * @return Response
      */
-    public function control($id, Request $request, $jsonld = false): Response
+    public function control($id, Request $request, RatingManagerInterface $ratingManager, $jsonld = false): Response
     {
-        if (null === $rating = $this->ratingManager->findOneById($id)) {
-            $rating = $this->ratingManager->createRating($id);
-            $this->ratingManager->saveRating($rating);
+        if (null === $rating = $ratingManager->findOneBy(['id' => $id])) {
+            $rating = $ratingManager->createRating($id);
+            $ratingManager->saveRating($rating);
         }
 
         // check if the user has permission to express the vote on entity Rating
@@ -113,18 +107,14 @@ class RatingController extends AbstractController
     /**
      * @Route("/vote/add/{id}/{value}", name="discutea_rating_add_vote")
      *
-     * @param $id
+     * @param Rating $rating
      * @param $value
      * @param Request $request
      * @param RouterInterface $router
      * @return Response
      */
-    public function addVote($id, $value, Request $request, RouterInterface $router): Response
+    public function addVote(Rating $rating, $value, Request $request, RouterInterface $router): Response
     {
-        if (null === $rating = $this->ratingManager->findOneById($id)) {
-            throw new NotFoundHttpException('Rating not found');
-        }
-
         if (null === $rating->getSecurityRole() || $this->isGranted($rating->getSecurityRole())) {
             throw new AccessDeniedHttpException('You can not perform the evaluation');
         }

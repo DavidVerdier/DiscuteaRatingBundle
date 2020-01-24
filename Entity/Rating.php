@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity()
  * @ORM\Table(name="rating_rating")
  * @ORM\ChangeTrackingPolicy("DEFERRED_EXPLICIT")
+ * @ORM\Entity(repositoryClass="Discutea\RatingBundle\Repository\RatingRepository")
  */
 class Rating extends BaseRating
 {

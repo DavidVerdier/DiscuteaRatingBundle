@@ -11,6 +11,7 @@ use Discutea\RatingBundle\Model\Vote as BaseVote;
  * @ORM\Entity()
  * @ORM\Table(name="rating_vote")
  * @ORM\ChangeTrackingPolicy("DEFERRED_EXPLICIT")
+ * @ORM\Entity(repositoryClass="Discutea\RatingBundle\Repository\VoteRepository")
  *
  * @package Discutea\RatingBundle\Entity
  * @copyright 2014 damianociarla https://github.com/damianociarla/DCSRatingBundle
