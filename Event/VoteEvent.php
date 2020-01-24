@@ -2,7 +2,7 @@
 
 namespace Discutea\RatingBundle\Event;
 
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 use Discutea\RatingBundle\Model\VoteInterface;
 
 /**
@@ -13,21 +13,23 @@ use Discutea\RatingBundle\Model\VoteInterface;
 class VoteEvent extends Event
 {
     /**
-     * @var \Discutea\RatingBundle\Model\VoteInterface
+     * @var VoteInterface
      */
     private $vote;
 
+    /**
+     * VoteEvent constructor.
+     * @param VoteInterface $vote
+     */
     public function __construct(VoteInterface $vote)
     {
         $this->vote = $vote;
     }
 
     /**
-     * Get vote
-     *
-     * @return \Discutea\RatingBundle\Model\VoteInterface
+     * @return VoteInterface
      */
-    public function getVote()
+    public function getVote(): VoteInterface
     {
         return $this->vote;
     }

@@ -21,9 +21,7 @@ class RatingUpdateInfoEventListener implements EventSubscriberInterface
     private $request;
 
     /**
-     * Set request
-     *
-     * @param Request $request
+     * @param RequestStack|null $request
      */
     public function setRequest(RequestStack $request = null)
     {
@@ -33,14 +31,20 @@ class RatingUpdateInfoEventListener implements EventSubscriberInterface
         }
     }
 
-    public static function getSubscribedEvents()
+    /**
+     * @return array
+     */
+    public static function getSubscribedEvents(): array
     {
         return array(
             RatingEvents::RATING_PRE_PERSIST => 'updatePermalink',
         );
     }
 
-    public function updatePermalink(RatingEvent $event)
+    /**
+     * @param RatingEvent $event
+     */
+    public function updatePermalink(RatingEvent $event): void
     {
         if (null === $this->request) {
             return;

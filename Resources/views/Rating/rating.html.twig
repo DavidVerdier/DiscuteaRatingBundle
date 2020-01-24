@@ -1,1 +1,4 @@
-{{ render(controller('DiscuteaRatingBundle:Rating:showRate', {'id' : id})) }}
+{{ render(controller(
+    'Discutea\\RatingBundle\\Controller\\RatingController::showRate',
+    {'id' : id}
+)) }}

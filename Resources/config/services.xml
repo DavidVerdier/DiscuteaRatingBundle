@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <defaults autowire="true" autoconfigure="true" public="false">
+            <bind key="$discuteaRatingConfig">%discutea_rating.configuration%</bind>
+        </defaults>
+
+        <prototype namespace="Discutea\RatingBundle\" resource="../../*" exclude="../../{DependencyInjection,Entity,Resources,DiscuteaRatingBundle.php}"/>
+        <prototype namespace="Discutea\RatingBundle\Controller\" resource="../../Controller">
+            <tag name="controller.service_arguments"/>
+        </prototype>
+
+        <service id="Discutea\RatingBundle\EventListener\RatingUpdateInfoEventListener">
+            <tag name="kernel.event_subscriber" />
+            <call method="setRequest">
+                <argument type="service" id="request_stack"/>
+            </call>
+        </service>
+        <service id="Discutea\RatingBundle\EventListener\RatingUpdateRateEventListener">
+            <tag name="kernel.event_subscriber" />
+        </service>
+    </services>
+
+</container>
+

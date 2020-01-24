@@ -2,6 +2,7 @@
 
 namespace Discutea\RatingBundle\Model;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -56,7 +57,7 @@ abstract class Rating implements RatingInterface
         $this->rate = 0;
         $this->numVotes = 0;
         $this->createdAt = new \DateTime('now');
-        $this->votes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->votes = new ArrayCollection();
     }
 
     /**

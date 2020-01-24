@@ -24,7 +24,8 @@
         "symfony/framework-bundle": "^4.4 || ^5.0",
         "symfony/orm-pack": "*",
         "symfony/event-dispatcher": "^4.4 || ^5.0",
-        "symfony/security-bundle": "^4.4 || ^5.0"
+        "symfony/security-bundle": "^4.4 || ^5.0",
+        "symfony/twig-pack": "*"
     },
     "autoload": {
         "psr-4": { "Discutea\\RatingBundle\\": "" }

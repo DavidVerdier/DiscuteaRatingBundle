@@ -5,6 +5,7 @@ namespace Discutea\RatingBundle\Entity;
 use Doctrine\ORM\EntityManager;
 use Discutea\RatingBundle\Model\VoteManager as BaseVoteManager;
 use Discutea\RatingBundle\Model\VoteInterface;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
@@ -15,12 +16,12 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 class VoteManager extends BaseVoteManager
 {
     /**
-     * @var \Doctrine\ORM\EntityManager
+     * @var EntityManagerInterface
      */
     protected $em;
 
     /**
-     * @var \Doctrine\ORM\EntityRepository
+     * @var \Doctrine\Persistence\ObjectRepository
      */
     protected $repository;
 
@@ -29,7 +30,12 @@ class VoteManager extends BaseVoteManager
      */
     protected $class;
 
-    public function __construct(EventDispatcherInterface $dispatcher, EntityManager $em)
+    /**
+     * VoteManager constructor.
+     * @param EventDispatcherInterface $dispatcher
+     * @param EntityManagerInterface $em
+     */
+    public function __construct(EventDispatcherInterface $dispatcher, EntityManagerInterface $em)
     {
         parent::__construct($dispatcher);
 

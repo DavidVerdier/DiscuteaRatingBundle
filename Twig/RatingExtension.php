@@ -3,13 +3,16 @@
 namespace Discutea\RatingBundle\Twig;
 
 use Symfony\Component\DependencyInjection\Container;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
+use Twig\TwigFilter;
 
 /**
  * Class RatingExtension
  * @package Discutea\RatingBundle\Twig
  * @copyright 2014 damianociarla https://github.com/damianociarla/DCSRatingBundle
  */
-class RatingExtension extends \Twig_Extension
+class RatingExtension extends AbstractExtension
 {
     private $container;
 
@@ -21,14 +24,14 @@ class RatingExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('getDefaultSecurityRole', array($this, 'getDefaultSecurityRoleFunction')),
+            new TwigFunction('getDefaultSecurityRole', array($this, 'getDefaultSecurityRoleFunction'))
         );
     }
 
     public function getFilters()
     {
         return array(
-            new \Twig_SimpleFilter('isHalfStar', array($this, 'isHalfStarFilter')),
+            new TwigFilter('isHalfStar', array($this, 'isHalfStarFilter'))
         );
     }
 
@@ -47,10 +50,5 @@ class RatingExtension extends \Twig_Extension
         }
 
         return false;
-    }
-
-    public function getName()
-    {
-        return 'rating_extension';
     }
 }

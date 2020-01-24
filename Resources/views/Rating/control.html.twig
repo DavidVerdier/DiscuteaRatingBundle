@@ -1,4 +1,7 @@
 {% set securityRole = role|default(getDefaultSecurityRole()) %}
 {% set permalink = permalink|default(app.request.uri) %}
 {% set jsonld = jsonld is defined %}
-{{ render(controller('DiscuteaRatingBundle:Rating:control', {'id' : id, 'permalink' : permalink, 'securityRole' : securityRole, 'jsonld' : jsonld, 'params' : params|default({})})) }}
+    {{ render(controller(
+        'Discutea\\RatingBundle\\Controller\\RatingController::control',
+        {'id' : id, 'permalink' : permalink, 'securityRole' : securityRole, 'jsonld' : jsonld, 'params' : params|default({})}
+    )) }}

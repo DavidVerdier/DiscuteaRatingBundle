@@ -2,20 +2,20 @@
 
 namespace Discutea\RatingBundle\Entity;
 
-use Doctrine\ORM\EntityManager;
 use Discutea\RatingBundle\Model\RatingManager as BaseRatingManager;
 use Discutea\RatingBundle\Model\RatingInterface;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class RatingManager extends BaseRatingManager
 {
     /**
-     * @var \Doctrine\ORM\EntityManager
+     * @var EntityManagerInterface
      */
     protected $em;
 
     /**
-     * @var \Doctrine\ORM\EntityRepository
+     * @var \Doctrine\Persistence\ObjectRepository
      */
     protected $repository;
 
@@ -24,7 +24,12 @@ class RatingManager extends BaseRatingManager
      */
     protected $class;
 
-    public function __construct(EventDispatcherInterface $dispatcher, EntityManager $em)
+    /**
+     * RatingManager constructor.
+     * @param EventDispatcherInterface $dispatcher
+     * @param EntityManagerInterface $em
+     */
+    public function __construct(EventDispatcherInterface $dispatcher, EntityManagerInterface $em)
     {
         parent::__construct($dispatcher);
 
@@ -35,6 +40,12 @@ class RatingManager extends BaseRatingManager
         $this->class = $metadata->name;
     }
 
+    /**
+     * @param RatingInterface $rating
+     * @return RatingInterface
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public function updateRatingStats(RatingInterface $rating)
     {
         $qb = $this->em->createQueryBuilder();
@@ -56,18 +67,28 @@ class RatingManager extends BaseRatingManager
         return $rating;
     }
 
+    /**
+     * @param array $criteria
+     * @return array|object|null
+     */
     public function findBy(array $criteria)
     {
         return $this->repository->findOneBy($criteria);
     }
 
+    /**
+     * @param RatingInterface $rating
+     */
     protected function doSaveRating(RatingInterface $rating)
     {
         $this->em->persist($rating);
         $this->em->flush();
     }
 
-    public function getClass()
+    /**
+     * @return string
+     */
+    public function getClass(): string
     {
         return $this->class;
     }

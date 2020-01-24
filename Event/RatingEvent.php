@@ -2,7 +2,7 @@
 
 namespace Discutea\RatingBundle\Event;
 
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 use Discutea\RatingBundle\Model\RatingInterface;
 
 /**
@@ -13,21 +13,23 @@ use Discutea\RatingBundle\Model\RatingInterface;
 class RatingEvent extends Event
 {
     /**
-     * @var \Discutea\RatingBundle\Model\RatingInterface
+     * @var RatingInterface
      */
     private $rating;
 
+    /**
+     * RatingEvent constructor.
+     * @param RatingInterface $rating
+     */
     public function __construct(RatingInterface $rating)
     {
         $this->rating = $rating;
     }
 
     /**
-     * Get rating
-     * 
-     * @return \Discutea\RatingBundle\Model\RatingInterface
+     * @return RatingInterface
      */
-    public function getRating()
+    public function getRating(): RatingInterface
     {
         return $this->rating;
     }
