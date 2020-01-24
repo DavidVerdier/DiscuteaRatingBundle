@@ -12,6 +12,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * Class RatingController
@@ -110,6 +111,7 @@ class RatingController extends AbstractController
 
     /**
      * @Route("/vote/add/{id}/{value}", name="discutea_rating_add_vote")
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
      *
      * @param Rating $rating
      * @param $value

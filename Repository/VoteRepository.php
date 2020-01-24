@@ -35,26 +35,30 @@ class VoteRepository extends ServiceEntityRepository
 
     /**
      * @param RatingInterface $rating
-     * @param UserInterface $voter
-     * @return Vote|VoteInterface
+     * @param UserInterface|null $voter
+     * @return Vote
      */
-    public function createVote(RatingInterface $rating, UserInterface $voter)
+    public function createVote(RatingInterface $rating, ?UserInterface $voter)
     {
-        $vote = new Vote();
-        $vote->setRating($rating);
-        $vote->setVoter($voter);
+        if (null !== $voter) {
+            $vote = new Vote();
+            $vote->setRating($rating);
+            $vote->setVoter($voter);
 
-        $this->dispatcher->dispatch(new VoteEvent($vote), RatingEvents::VOTE_CREATE);
+            $this->dispatcher->dispatch(new VoteEvent($vote), RatingEvents::VOTE_CREATE);
 
-        return $vote;
+            return $vote;
+        }
+
+        return null;
     }
 
     /**
      * @param RatingInterface $rating
-     * @param UserInterface $voter
-     * @return Vote|mixed|null
+     * @param UserInterface|null $voter
+     * @return Vote|null
      */
-    public function findOneByRatingAndVoter(RatingInterface $rating, UserInterface $voter)
+    public function findOneByRatingAndVoter(RatingInterface $rating, ?UserInterface $voter)
     {
         return $this->findOneBy(array(
             'rating' => $rating,

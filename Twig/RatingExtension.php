@@ -14,11 +14,11 @@ use Twig\TwigFilter;
  */
 class RatingExtension extends AbstractExtension
 {
-    private $container;
+    private $config;
 
-    public function __construct(Container $container)
+    public function __construct(array $discuteaRatingConfig)
     {
-        $this->container = $container;
+        $this->config = $discuteaRatingConfig;
     }
 
     public function getFunctions()
@@ -37,7 +37,7 @@ class RatingExtension extends AbstractExtension
 
     public function getDefaultSecurityRoleFunction()
     {
-        return $this->container->getParameter('discutea_rating.base_security_role');
+        return $this->config['base_security_role'];
     }
 
     public function isHalfStarFilter($value, $compareValue)
