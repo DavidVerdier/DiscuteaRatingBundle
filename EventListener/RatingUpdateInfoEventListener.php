@@ -21,9 +21,10 @@ class RatingUpdateInfoEventListener implements EventSubscriberInterface
     private $request;
 
     /**
+     * RatingUpdateInfoEventListener constructor.
      * @param RequestStack|null $request
      */
-    public function setRequest(RequestStack $request = null)
+    public function __construct(RequestStack $request = null)
     {
         if (method_exists($request->getCurrentRequest(), 'getLocale'))
         {

@@ -16,9 +16,6 @@
 
         <service id="Discutea\RatingBundle\EventListener\RatingUpdateInfoEventListener">
             <tag name="kernel.event_subscriber" />
-            <call method="setRequest">
-                <argument type="service" id="request_stack"/>
-            </call>
         </service>
         <service id="Discutea\RatingBundle\EventListener\RatingUpdateRateEventListener">
             <tag name="kernel.event_subscriber" />

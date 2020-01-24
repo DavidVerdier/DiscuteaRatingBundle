@@ -6,7 +6,6 @@ use Discutea\RatingBundle\Entity\Rating;
 use Discutea\RatingBundle\Entity\Vote;
 use Discutea\RatingBundle\Event\RatingEvent;
 use Discutea\RatingBundle\Model\RatingInterface;
-use Discutea\RatingBundle\Model\RatingManagerInterface;
 use Discutea\RatingBundle\RatingEvents;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -18,7 +17,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
  * @method Rating[]    findAll()
  * @method Rating[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class RatingRepository extends ServiceEntityRepository implements RatingManagerInterface
+class RatingRepository extends ServiceEntityRepository
 {
     /**
      * @var EventDispatcherInterface

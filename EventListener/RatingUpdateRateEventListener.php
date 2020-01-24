@@ -2,11 +2,11 @@
 
 namespace Discutea\RatingBundle\EventListener;
 
+use Discutea\RatingBundle\Repository\RatingRepository;
+use Discutea\RatingBundle\Repository\VoteRepository;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Discutea\RatingBundle\RatingEvents;
 use Discutea\RatingBundle\Event\VoteEvent;
-use Discutea\RatingBundle\Model\RatingManagerInterface;
-use Discutea\RatingBundle\Model\VoteManagerInterface;
 
 /**
  * Class RatingUpdateRateEventListener
@@ -16,24 +16,24 @@ use Discutea\RatingBundle\Model\VoteManagerInterface;
 class RatingUpdateRateEventListener implements EventSubscriberInterface
 {
     /**
-     * @var RatingManagerInterface
+     * @var RatingRepository
      */
     private $ratingManager;
 
     /**
-     * @var VoteManagerInterface
+     * @var VoteRepository
      */
     private $voteManager;
 
     /**
      * RatingUpdateRateEventListener constructor.
-     * @param RatingManagerInterface $ratingManager
-     * @param VoteManagerInterface $voteManager
+     * @param RatingRepository $ratingRepository
+     * @param VoteRepository $voteRepository
      */
-    public function __construct(RatingManagerInterface $ratingManager, VoteManagerInterface $voteManager)
+    public function __construct(RatingRepository $ratingRepository, VoteRepository $voteRepository)
     {
-        $this->ratingManager = $ratingManager;
-        $this->voteManager = $voteManager;
+        $this->ratingManager = $ratingRepository;
+        $this->voteManager = $voteRepository;
     }
 
     /**
@@ -48,6 +48,10 @@ class RatingUpdateRateEventListener implements EventSubscriberInterface
 
     /**
      * @param VoteEvent $event
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function onCreateVote(VoteEvent $event): void
     {

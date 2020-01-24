@@ -3,8 +3,8 @@
 namespace Discutea\RatingBundle\Controller;
 
 use Discutea\RatingBundle\Entity\Rating;
-use Discutea\RatingBundle\Model\RatingManagerInterface;
-use Discutea\RatingBundle\Model\VoteManagerInterface;
+use Discutea\RatingBundle\Repository\RatingRepository;
+use Discutea\RatingBundle\Repository\VoteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,9 +21,9 @@ use Symfony\Component\Routing\RouterInterface;
 class RatingController extends AbstractController
 {
     /**
-     * @var VoteManagerInterface
+     * @var VoteRepository
      */
-    private $voteManager;
+    private $voteRepository;
 
     /**
      * @var array
@@ -32,25 +32,27 @@ class RatingController extends AbstractController
 
     /**
      * RatingController constructor.
-     * @param VoteManagerInterface $voteManager
+     * @param VoteRepository $voteRepository
      * @param array $discuteaRatingConfig
      */
-    public function __construct(VoteManagerInterface $voteManager, array $discuteaRatingConfig)
+    public function __construct(VoteRepository $voteRepository, array $discuteaRatingConfig)
     {
-        $this->voteManager = $voteManager;
+        $this->voteRepository = $voteRepository;
         $this->discuteaRatingConfig = $discuteaRatingConfig;
     }
 
     /**
      * @param $id
-     * @param RatingManagerInterface $ratingManager
+     * @param RatingRepository $ratingRepository
      * @return Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function showRate($id, RatingManagerInterface $ratingManager): Response
+    public function showRate($id, RatingRepository $ratingRepository): Response
     {
-        if (null === $rating = $ratingManager->findOneBy(['id' => $id])) {
-            $rating = $ratingManager->createRating($id);
-            $ratingManager->saveRating($rating);
+        if (null === $rating = $ratingRepository->findOneBy(['id' => $id])) {
+            $rating = $ratingRepository->createRating($id);
+            $ratingRepository->saveRating($rating);
         }
 
         return $this->render('@DiscuteaRatingBundle/Rating/star.html.twig', array(
@@ -63,14 +65,17 @@ class RatingController extends AbstractController
     /**
      * @param $id
      * @param Request $request
+     * @param RatingRepository $ratingRepository
      * @param bool $jsonld
      * @return Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function control($id, Request $request, RatingManagerInterface $ratingManager, $jsonld = false): Response
+    public function control($id, Request $request, RatingRepository $ratingRepository, $jsonld = false): Response
     {
-        if (null === $rating = $ratingManager->findOneBy(['id' => $id])) {
-            $rating = $ratingManager->createRating($id);
-            $ratingManager->saveRating($rating);
+        if (null === $rating = $ratingRepository->findOneBy(['id' => $id])) {
+            $rating = $ratingRepository->createRating($id);
+            $ratingRepository->saveRating($rating);
         }
 
         // check if the user has permission to express the vote on entity Rating
@@ -82,8 +87,7 @@ class RatingController extends AbstractController
             if (!$this->discuteaRatingConfig['unique_vote']) {
                 $viewName = 'choice';
             } else {
-                $vote = $this->voteManager
-                    ->findOneByRatingAndVoter($rating, $this->getUser());
+                $vote = $this->voteRepository->findOneByRatingAndVoter($rating, $this->getUser());
 
                 $viewName = null === $vote ? 'choice' : 'star';
             }
@@ -112,6 +116,8 @@ class RatingController extends AbstractController
      * @param Request $request
      * @param RouterInterface $router
      * @return Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function addVote(Rating $rating, $value, Request $request, RouterInterface $router): Response
     {
@@ -128,15 +134,15 @@ class RatingController extends AbstractController
         $user = $this->getUser();
 
         if ($this->discuteaRatingConfig['unique_vote'] &&
-            null !== $this->voteManager->findOneByRatingAndVoter($rating, $user)
+            null !== $this->voteRepository->findOneByRatingAndVoter($rating, $user)
         ) {
             throw new AccessDeniedHttpException('You have already rated');
         }
 
-        $vote = $this->voteManager->createVote($rating, $user);
+        $vote = $this->voteRepository->createVote($rating, $user);
         $vote->setValue($value);
 
-        $this->voteManager->saveVote($vote);
+        $this->voteRepository->saveVote($vote);
 
         if ($request->isXmlHttpRequest()) {
             return $this->forward('DiscuteaRatingBundle:Rating:showRate', array(
